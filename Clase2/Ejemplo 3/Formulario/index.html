@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="./icono.png" type="image/x-icon">
+    <title>Ejemplo 3 formularios</title>
+</head>
+<body>
+    <h1>Formulario</h1>
+    <form id="frm1" action="pagina1.php" method="GET">
+        
+        <fieldset>
+            <legend>Datos Personales</legend>
+            <p>
+                <label for="txtNombre">Nombre:</label>
+                <input type="text" id="txtNombre" name="nombre" class="" placeholder="Ingrese su nombre" required>
+            </p>
+
+            <p>
+                    <label for="txtEdad">Edad:</label>
+                    <input type="number" id="txtEdad" name="edad" class="" min=1 max=99 value=18 required>
+            </p>
+
+            <p>
+                    <label for="dtEdad">Fecha nacimiento:</label>
+                    <input type="date" name="edad" id="dtEdad" required>
+            </p>
+        </fieldset>
+        
+        <p>
+            <label for="txtEmail">Email:</label>
+            <input type="email" id="txtEmail" name="email" class="" placeholder="Ingrese su email" required>
+        </p>
+
+        <p>
+            <label for="urlFoto">Foto:</label>
+            <input type="file" id="urlFoto" name="foto" class="" requiered accept="image/jpeg, image/pgn">
+        </p>
+
+        <p>
+            <label for="txtClave">Clave:</label>
+            <input type="password" id="txtClave" name="password" class="" required>
+        </p>
+        
+        <select name="" id="">
+
+            <optgroup label="Lenguajes 1"> 
+                <option value="0">C</option>
+                <option value="1">C#</option>
+            </optgroup>
+           
+            <optgroup label="Lenguajes 2">
+                <option value="2">JavaScript</option>
+                <option value="3">PHP</option>
+            </optgroup>
+
+        </select>
+
+        <p>
+            <label for="ingles">Ingles:</label>
+            <input type="checkbox" name="nivelIngles" id="ingles">
+        </p>
+        
+        <fieldset>
+            <legend>Sexo</legend>
+            <p>
+                <label for="masculino">Masculino</label>
+                <input type="radio" name="sexo" id="masculino">
+            </p>
+            <p>
+                <label for="femenino">Femenino</label>
+                <input type="radio" name="sexo" id="femenino">
+            </p>
+            
+        </fieldset>
+
+        <p>
+            <label for="comentarios">Comentarios</label>
+        </p>
+
+        <p>
+            <textarea name="" id="comentarios" cols="30" rows="10"></textarea>
+        </p>
+
+        <p>
+            <input type="button" value="Enviar">
+        </p>
+
+        <p>
+            <input type="submit">          <!-- Por defecto value = Enviar-->
+        </p>
+
+        <p>
+            <input type="reset">              <!-- Borra lo escrito en cualquier formulario -->
+        </p>
+        
+        <p>
+            <button id="btnEnviar">Enviar Formulario</button>              <!-- Otro tipo de boton similar al submit -->
+        </p>
+
+        <script>
+            var txtNombre = document.getElementById('txtNombre');
+
+            //var frm = document.getElementsByTagName('form')[0];
+            
+            var frm = document.getElementById('frm1'); //asi es mas cheto
+
+            //una forma
+            /*frm.addEventListener('submit', manejarSumbit);
+
+            function manejarSumbit(e)
+            {
+                e.preventDefault();
+                alert("Maneje el submit");
+            }*/
+
+            //otra forma
+
+           /* frm.addEventListener('submit', function(e){
+                
+            })*/
+
+            //una forma mas
+            frm.addEventListener('submit', (e)=>{
+                e.preventDefault();
+                alert("Maneje el submit");
+            })
+        </script>
+        <h2>Lab III UTN-FRA todos los derechos reservados &copy;</h2>
+        <p>E = m . c &sup2;</p>
+        <p>H<sub>2</sub>O</p>
+        <p><u>Esto esta subrrayado</u></p>
+        <p><mark>Esto esta resaltado</mark></p>
+        <p><del>Esto esta tachado</del></p>
+    </form>
+</body>
+</html>
