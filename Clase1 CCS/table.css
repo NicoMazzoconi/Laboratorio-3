@@ -1,0 +1,57 @@
+table, th, tr, td{
+    border: 2px black solid;
+    border-collapse: collapse;
+}
+
+tr:nth-child(even)
+{
+    background-color: lightblue;
+    transition: background-color 2s ease;
+}
+
+tr:nth-child(odd)
+{
+    background-color: lightcoral;
+    transition: background-color 2s ease;
+}
+
+tr:nth-child(even):hover
+{
+    background-color: lightcoral;
+}
+
+tr:nth-child(odd):hover
+{
+    background-color: lightblue;
+}
+
+td
+{
+    height: 50px;
+    text-align: center;
+}
+
+th
+{
+    padding: 10px;
+}
+
+th:hover()
+{
+    background-color: rgb(97, 63, 63);
+}
+
+table
+{
+    width: 2000px;
+}
+
+.overflowx
+{
+    overflow-x: scroll;
+}
+
+.overflowy
+{
+    overflow-y: scroll;
+}

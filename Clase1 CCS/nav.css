@@ -1,0 +1,62 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul
+{
+    list-style-type: none;
+
+}
+
+ul li
+{
+    background-color: lightblue;
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    /*border-right: 4px gray dotted;  dasshed dotter y solid*/
+    border: 4px gray solid;
+}
+
+
+
+ul li:hover /* con este cuando acercas el maus cambia de color*/ 
+{
+    background-color: rgb(100, 200, 218);
+}
+
+ul li a
+{
+    text-decoration: none;
+    color: white;
+    display: block;
+    text-align: center;
+}
+
+@media only screen and (min-width: 500px) /**/
+{
+    ul li
+    {
+        float: none;
+        border-right: none;
+        border-left: none;
+        border-top: none;
+        position: relative;
+        left: -150px;
+        transition: left 4s;
+
+    }
+
+    ul li :last-child /*se refiere al ultimo li para que no tenga borde, asi si se agregan mas no quedan mal */
+    {
+        border-right: none;
+    }
+
+    ul li:hover
+    {
+        left: 0;
+    }
+}

@@ -1,0 +1,34 @@
+#miParrafo
+{
+    color:rgb(255,155,255)
+}
+p
+{
+    color:blue;
+    font-family: fantasy; 
+}
+div
+{
+    color:yellow
+}
+s{
+    color:yellowgreen
+}
+.miClase
+{
+    background-color:green;
+}
+
+#miDiv{
+    color: red;
+    height: 100px;
+    width: 100px;
+    background-color: black;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 50px;
+    border-radius: 250px;
+    border-color: red;
+  
+}
