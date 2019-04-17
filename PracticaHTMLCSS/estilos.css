@@ -1,14 +1,30 @@
+*{
+    padding: 0;
+    margin: 0;
+}
 #imgLogo{
     position: relative;
     left: 200px;
 }
-
+ul{
+    list-style: none;
+}
 #barraInicio{
     background-color: purple;
     margin: 0px;
-    padding: 20px;
+    padding: 40px 20px;
+    list-style: none;
+    text-align: center;
 }
 
+#barraInicio > ul > li{
+    display: none;
+}
+li{
+    float: left;
+    text-align: center;
+    bottom: 10px;
+}
 #inicio{
     margin: 80px;
     position: relative;
@@ -35,7 +51,7 @@ p{
 #leerMas{
     position: relative;
     left: 200px;
-    padding: 20px;
+    padding: 10px 30px;
     margin: 0px;
     border: 0px;
     width: 100px;
