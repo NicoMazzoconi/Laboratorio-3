@@ -1,0 +1,32 @@
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+        <h2>Lenguajes</h2>
+        
+        <div id="miDiv"></div>
+        <br>
+        <button id="btnEjecutar">Ejecutar</button>
+        <script>
+
+            var btn = document.getElementById("btnEjecutar");
+            btn.addEventListener('click', Ejecturar);
+
+            function Ejecturar()
+            {
+                var div = document.getElementById('miDiv');
+
+                var img = document.createElement('img');
+    
+                img.setAttribute('src', "./Penguins.jpg");
+                img.setAttribute('alt', "Imagen de pinguinos");
+                img.setAttribute('height', "200px");
+                div.appendChild(img);
+            }
+        </script>
+    </body>
+    </html>
