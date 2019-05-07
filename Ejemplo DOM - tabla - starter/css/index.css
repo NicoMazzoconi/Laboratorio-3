@@ -1,0 +1,26 @@
+table tr,td{
+    border: 1px solid black;
+    text-align: center;
+}
+
+table tr,th{
+    border: 1px solid black;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+
+table{
+    border-collapse: collapse;
+    float:left;
+}
+
+table tr:hover{
+    background-color: blueviolet;
+    cursor: pointer;
+}
+
+table tr:first-child:hover{
+    background-color: white;
+    cursor: default;
+}
