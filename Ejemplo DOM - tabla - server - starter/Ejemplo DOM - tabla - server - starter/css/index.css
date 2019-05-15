@@ -1,0 +1,23 @@
+.borde,td{
+    border: 1px solid salmon;
+    border-collapse: collapse;
+}
+
+table tr:nth-child(even){
+    background-color: cadetblue;
+}
+
+#spinner{
+    display: none;
+}
+
+#divForm{
+    position: absolute;
+    top:10%;
+    margin-left: 20%;
+    padding: 15%;
+    background-color: black;
+}
+p{
+    color: red;
+}
