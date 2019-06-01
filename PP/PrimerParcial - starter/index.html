@@ -21,13 +21,15 @@
         <input type="button" value="Agregar" id="btnAlta" class="puntero">
     </nav>
 
-    <div id="divFrm" class="frmAlta" display="none">
+    <div id="divFrm" class="frmAlta"></div>
+
+    <div id="divFrmMod" class="frmMod"></div>
+
+    <div id="divSpin">
+        <img src="./images/spinner.gif" alt="spinner" id="spinner">
     </div>
-    <div id="divFrmMod" class="frmMod" display="none">
-    </div>
-   <div id="divSpin" display="none"><img src="./images/spinner.gif" alt="spinner" id="spinner"></div>
+    
     <div id="divTabla">
-        
         <table id="tablaLista">
             <thead>
                 <tr>
@@ -36,10 +38,10 @@
                     <th>Apellido</th>
                     <th>Email</th>
                     <th>Gender</th>
+                    <th>Activo</th>
                 </tr>
             </thead>
-            <tbody id="bodyTabla">
-            </tbody>
+            <tbody id="bodyTabla"></tbody>
         </table>
     </div>
 </body>
