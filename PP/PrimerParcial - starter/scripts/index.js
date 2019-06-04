@@ -9,7 +9,7 @@ window.onload = function(){
     btnAlta = document.getElementById('btnAlta');
     formMod = document.getElementById('divFrmMod');
     formAlta = document.getElementById('divFrm');
-    tabla = document.getElementById('tablaLista');
+    tabla = document.getElementById('bodyTabla');
     spin = document.getElementById('divSpin');
     
     btnAlta.addEventListener('click', function(){
