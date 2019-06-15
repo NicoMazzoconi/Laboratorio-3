@@ -1,6 +1,6 @@
 var xhr;
 
-function traerPersonas()
+/*function traerPersonas()
 {
   xhr = new XMLHttpRequest();
   xhr.onreadystatechange = procesarPersonas;
@@ -8,9 +8,26 @@ function traerPersonas()
   xhr.open('GET',cadena,true);
   xhr.send();
     
+}*/
+
+function traerPersonas()
+{
+    $.ajax({
+        url: "http://localhost:3000/traer?collection=personas",
+        beforeSend: function(){
+            setSpinner(true);
+        },
+        success: function(respuesta){
+            actualizarTabla(respuesta);
+            setSpinner(false);
+        },
+        error: function(xhr,status){
+            alert("Error: " + status + " " + xhr.statusText);
+        }
+    });
 }
 
-function insertarPersona(persona)
+/*function insertarPersona(persona)
 {
   xhr = new XMLHttpRequest();
   xhr.onreadystatechange = procesarPersonas;
@@ -19,6 +36,28 @@ function insertarPersona(persona)
   xhr.open('POST', cadena, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send(JSON.stringify(body));     
+}*/
+
+function insertarPersona(persona)
+{
+  $.ajax({
+    url: "http://localhost:3000/agregar",
+    data,persona,
+    type:pots,
+    dataType: "application/json",
+
+    beforeSend: function(){
+        setSpinner(true);
+    },
+    success: function(respuesta){
+        traerPersonas();
+        alert(respuesta);
+        setSpinner(false);
+    },
+    error: function(xhr,status){
+        alert("Error: " + status + " " + xhr.statusText);
+    }
+});
 }
 
 function eliminarPersona(id)
