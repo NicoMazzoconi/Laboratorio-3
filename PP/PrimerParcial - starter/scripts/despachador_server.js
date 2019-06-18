@@ -1,14 +1,5 @@
 var xhr;
 
-/*function traerPersonas()
-{
-  xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = procesarPersonas;
-  var cadena = 'http://localhost:3000/traer?collection=personas';
-  xhr.open('GET',cadena,true);
-  xhr.send();
-    
-}*/
 
 function traerPersonas()
 {
@@ -27,7 +18,7 @@ function traerPersonas()
     });
 }
 
-/*function insertarPersona(persona)
+function insertarPersona(persona)
 {
   xhr = new XMLHttpRequest();
   xhr.onreadystatechange = procesarPersonas;
@@ -36,39 +27,7 @@ function traerPersonas()
   xhr.open('POST', cadena, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send(JSON.stringify(body));     
-}*/
-
-function insertarPersona(persona)
-{
-  var body = {'collection':'personas','objeto':persona};
-  $.ajax({
-    url: "http://localhost:3000/agregar",
-    data: JSON.stringify(body),
-    type:"post",
-    contentType: 'application/json',
-    beforeSend: function(){
-        setSpinner(true);
-    },
-    success: function(respuesta){
-        traerPersonas();
-        setSpinner(false);
-    },
-    error: function(xhr,status){
-        alert("Error: " + status + " " + xhr.statusText);
-    }
-});
 }
-
-/*function eliminarPersona(id)
-{
-  xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = procesarPersonas;
-  var cadena = 'http://localhost:3000/eliminar ';
-  var body = {'collection':'personas','id':id}
-  xhr.open('POST', cadena, true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.send(JSON.stringify(body));
-}*/
 
 function eliminarPersona(id)
 {
@@ -91,7 +50,7 @@ function eliminarPersona(id)
 });
 }
 
-/*function modificarPersona(persona)
+function modificarPersona(persona)
 {
   xhr = new XMLHttpRequest();
   xhr.onreadystatechange = procesarPersonas;
@@ -100,27 +59,6 @@ function eliminarPersona(id)
   xhr.open('POST', cadena, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send(JSON.stringify(body));
-}*/
-
-function modificarPersona(persona)
-{
-  var body = {'collection':'personas','objeto':persona};
-  $.ajax({
-    url: "http://localhost:3000/modificar",
-    data: JSON.stringify(body),
-    type:"post",
-    contentType: 'application/json',
-    beforeSend: function(){
-        setSpinner(true);
-    },
-    success: function(respuesta){
-        traerPersonas();
-        setSpinner(false);
-    },
-    error: function(xhr,status){
-        alert("Error: " + status + " " + xhr.statusText);
-    }
-});
 }
 
 function procesarPersonas()

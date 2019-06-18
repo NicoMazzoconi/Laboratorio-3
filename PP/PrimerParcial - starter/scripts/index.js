@@ -23,7 +23,7 @@ function actualizarTabla(data)
     lista = data.data;
     for(var i=0;i<lista.length;i++){
         var tr = document.createElement("tr");
-        for(var j=0;j<Object.keys(lista[i]).length;j++){
+        for(var j=0;j<Object.keys(lista[i]).length -1;j++){
             var td = document.createElement("td");
             var text =document.createTextNode(Object.values(lista[i])[j]);
             td.appendChild(text);
@@ -86,7 +86,7 @@ function mostrarFormulario(persona)
     var pLast = document.createElement('p');
     var pEmail = document.createElement('p');
     var pSexo = document.createElement('p');
-    var pActivo = document.createElement('p');
+    var pProvincia = document.createElement('p');
 
     //LABEL
     var lblName = document.createElement('label');
@@ -95,8 +95,7 @@ function mostrarFormulario(persona)
     var lblSexo = document.createElement('label');
     var lblHombre = document.createElement('label');
     var lblMujer = document.createElement('label');
-    var lblActivo = document.createElement('label');
-    var lblInactivo = document.createElement('label');
+    var lblProvinicia = document.createElement('label');
 
     //NODE TEXT
     var nodeTextName = document.createTextNode("NOMBRE");
@@ -105,8 +104,7 @@ function mostrarFormulario(persona)
     var nodeTextSexo = document.createTextNode("SEXO");
     var nodeTextHombre = document.createTextNode("HOMBRE");
     var nodeTextMujer = document.createTextNode('MUJER');
-    var nodeTextActivo = document.createTextNode("ACTIVO");
-    var nodeTextInactivo = document.createTextNode("INACTIVO");
+    var nodeTextProvincia = document.createTextNode('PROVINCIA');
 
     //AGREGO LOS NODE TEXT A LOS LABEL
     lblName.appendChild(nodeTextName);
@@ -115,8 +113,7 @@ function mostrarFormulario(persona)
     lblSexo.appendChild(nodeTextSexo);
     lblHombre.appendChild(nodeTextHombre);
     lblMujer.appendChild(nodeTextMujer);
-    lblActivo.appendChild(nodeTextActivo);
-    lblInactivo.appendChild(nodeTextInactivo);
+    lblProvinicia.appendChild(nodeTextProvincia);
 
     //INPUTS TEXT
     var inputName = document.createElement('input');
@@ -139,16 +136,30 @@ function mostrarFormulario(persona)
     inputMujer.setAttribute('type', 'radio');
     inputMujer.setAttribute('name', 'sexo');
 
-    var inputTrue = document.createElement('input');
-    inputTrue.setAttribute('type', 'radio');
-    inputTrue.setAttribute('name', 'activo');
-    inputTrue.setAttribute('checked', true);
+    //SELECT
+    var inputProvincia = document.createElement('select');
+    
+    //Provincias
+    var buenosAires = document.createElement('option');
+    buenosAires.value = "Buenos Aires";
+    buenosAires.innerHTML = "Buenos Aires";
+    var cordoba = document.createElement('option');
+    cordoba.value = "Cordoba";
+    cordoba.innerHTML = "Cordoba";
+    var mendoza = document.createElement('option');
+    mendoza.value = "Mendoza";
+    mendoza.innerHTML = "Mendoza";
+    var entreRios = document.createElement('option');
+    entreRios.value = "Entre Rios";
+    entreRios.innerHTML = "Entre Rios";
 
-    var inputFalse = document.createElement('input');
-    inputFalse.setAttribute('type', 'radio');
-    inputFalse.setAttribute('name', 'activo');
+    //AGREGO LAS PROVINCIAS
+    inputProvincia.appendChild(buenosAires);
+    inputProvincia.appendChild(cordoba);
+    inputProvincia.appendChild(mendoza);
+    inputProvincia.appendChild(entreRios);
 
-    //AGREGO A LOS PARRAFOS
+    //AGREGO A LOS PARRAFOS 
     pName.appendChild(lblName);
     pName.appendChild(inputName);
 
@@ -166,32 +177,15 @@ function mostrarFormulario(persona)
     pSexo.appendChild(inputMujer);
     pSexo.appendChild(lblMujer);
 
-    pActivo.appendChild(inputTrue);
-    pActivo.appendChild(lblActivo);
-
-    pActivo.appendChild(inputFalse);
-    pActivo.appendChild(lblInactivo);
+    pProvincia.appendChild(lblProvinicia);
+    pProvincia.appendChild(inputProvincia);
 
     //AGREGO AL FORM
     formulario.appendChild(pName);
     formulario.appendChild(pLast);
     formulario.appendChild(pEmail);
     formulario.appendChild(pSexo);
-    formulario.appendChild(pActivo);
-
-    //Eventos change de radio buttons
-    inputHombre.addEventListener('change', function(e) {
-        e.preventDefault();
-    });
-    inputMujer.addEventListener('change', function(e) {
-        e.preventDefault();
-    });
-    inputTrue.addEventListener('change', function(e) {
-        e.preventDefault();
-    });
-    inputFalse.addEventListener('change', function(e) {
-        e.preventDefault();
-    });
+    formulario.appendChild(pProvincia);
 
     if(persona)
     {
@@ -199,16 +193,12 @@ function mostrarFormulario(persona)
         inputName.setAttribute('value', persona.first_name);
         inputLast.setAttribute('value', persona.last_name);
         inputEmail.setAttribute('value', persona.email);
+       
 
         if(persona.gender == "Female")
             inputMujer.checked = true;
         else
             inputHombre.checked = true;
-
-        if(persona.active)
-            inputTrue.checked = true;
-        else
-            inputFalse.checked = true;
 
         //Creo boton guardar
         var btnGuardar = document.createElement('button')
@@ -240,24 +230,20 @@ function mostrarFormulario(persona)
             if(inputEmail.validity.valid)
             {
                 var sex;
-                var act;
                 if(inputHombre.checked)
                     sex = "Male";
                 else
                     sex = "Female";
-                
-                if(inputTrue.checked)
-                    act = true;
-                else
-                    act = false;
-
+    
                 var usuario = {
                     "id":persona.id,
                     "first_name":inputName.value,
                     "last_name":inputLast.value,
                     "email":inputEmail.value,
                     "gender":sex,
-                    "active":act
+                    
+                    "provincia":inputProvincia.value,
+                    "active":true
                 };
 
                 modificarPersona(usuario);
@@ -272,6 +258,7 @@ function mostrarFormulario(persona)
         //Llamo al form
         formMod.appendChild(formulario);
         formMod.style = 'display: block';
+        
     }
     else
     {
@@ -299,24 +286,20 @@ function mostrarFormulario(persona)
             if(inputEmail.validity.valid)
             {
                 var sex;
-                var act;
                 if(inputHombre.checked)
                     sex = "Male";
                 else
                     sex = "Female";
                 
-                if(inputTrue.checked)
-                    act = true;
-                else
-                    act = false;
-
                 var usuario = {
                     "id":"-1",
                     "first_name":inputName.value,
                     "last_name":inputLast.value,
                     "email":inputEmail.value,
                     "gender":sex,
-                    "active":act
+                    "provincia":inputProvincia.value,
+                    "active":true
+                    
                 };
 
                 insertarPersona(usuario);
