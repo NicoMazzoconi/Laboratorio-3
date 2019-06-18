@@ -179,6 +179,19 @@ function mostrarFormulario(persona)
     formulario.appendChild(pSexo);
     formulario.appendChild(pActivo);
 
+    //Eventos change de radio buttons
+    inputHombre.addEventListener('change', function(e) {
+        e.preventDefault();
+    });
+    inputMujer.addEventListener('change', function(e) {
+        e.preventDefault();
+    });
+    inputTrue.addEventListener('change', function(e) {
+        e.preventDefault();
+    });
+    inputFalse.addEventListener('change', function(e) {
+        e.preventDefault();
+    });
 
     if(persona)
     {
