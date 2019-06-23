@@ -80,7 +80,9 @@ function mostrarFormulario(persona)
     //CREO EL FORMULARIO
     var formulario = document.createElement('form');
     formulario.setAttribute('id', 'formABM');
-
+    
+    //DIV FORM BOOSTRAP
+    
     //PARRAFOS
     var pName = document.createElement('p');
     var pLast = document.createElement('p');
@@ -193,8 +195,25 @@ function mostrarFormulario(persona)
         inputName.setAttribute('value', persona.first_name);
         inputLast.setAttribute('value', persona.last_name);
         inputEmail.setAttribute('value', persona.email);
-       
-
+        switch(persona.provincia)
+        {
+            case 'Buenos Aires':
+                inputProvincia.selectedIndex = 0;
+                break;
+            case 'Cordoba':
+                inputProvincia.selectedIndex = 1;
+                break;
+            case 'Mendoza':
+                inputProvincia.selectedIndex = 2;
+                break;
+            case 'Entre Rios':
+                inputProvincia.selectedIndex = 3;
+                break;
+            default:
+                inputProvincia.selectedIndex = 0;
+                break;
+        }
+        
         if(persona.gender == "Female")
             inputMujer.checked = true;
         else
@@ -203,17 +222,20 @@ function mostrarFormulario(persona)
         //Creo boton guardar
         var btnGuardar = document.createElement('button')
         var txtNodeGuardar = document.createTextNode("Guardar");
+        btnGuardar.setAttribute('class', 'btn btn-success');
         btnGuardar.appendChild(txtNodeGuardar);
         formulario.appendChild(btnGuardar);
 
         //Creo el boton cancelar
         var btnCancelar = document.createElement('button')
         btnCancelar.innerText = "Cancelar";
+        btnCancelar.setAttribute('class', 'btn btn-danger');
         formulario.appendChild(btnCancelar);
 
         //Creo el boton borrar
         var btnBorrar = document.createElement('button')
         var txtNodeBorrar = document.createTextNode("Borrar");
+        btnBorrar.setAttribute('class', 'btn btn-warning');
         btnBorrar.appendChild(txtNodeBorrar);
         formulario.appendChild(btnBorrar);
 
@@ -265,12 +287,14 @@ function mostrarFormulario(persona)
         //Creo boton guardar
         var btnGuardar = document.createElement('button')
         var txtNodeGuardar = document.createTextNode("Guardar");
+        btnGuardar.setAttribute('class', 'btn btn-success');
         btnGuardar.appendChild(txtNodeGuardar);
         formulario.appendChild(btnGuardar);
 
         //Creo el boton cancelar
         var btnCancelar = document.createElement('button')
         btnCancelar.innerText = "Cancelar";
+        btnCancelar.setAttribute('class', 'btn btn-danger');
         formulario.appendChild(btnCancelar);
 
         //Agrego eventos a los botones
