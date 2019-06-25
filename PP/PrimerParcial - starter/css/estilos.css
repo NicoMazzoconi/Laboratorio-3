@@ -97,3 +97,27 @@ form button{
     left: 60%;
     top: 40px;
 }
+#label1{
+    position: relative;
+    left: 5%;
+}
+#label2{
+    position: relative;
+    left: 10%;
+}
+#label3{
+    position: relative;
+    left: 20%;
+}
+#label4{
+    position: relative;
+    left: 30%;
+}
+#label5{
+    position: relative;
+    left: 53%;
+}
+#label6{
+    position: relative;
+    left: 61%;
+}

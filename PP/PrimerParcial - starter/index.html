@@ -31,15 +31,47 @@
         <div id="divSpin" class="spinner-grow" role="status"></div>
         
         <div id="divTabla">
+            <p>
+                <label for="">Filtro</label>
+                <select name="" id="filtro">
+                    <option value="0">Todos</option>
+                    <option value="Male">Hombre</option>
+                    <option value="Female">Mujer</option>
+                </select>
+            </p>
+            <p>
+                <label for="">Ocultar</label>
+            </p>
+            <p>
+                <label class="form-check-label" id="label1">
+                    <input class="form-check-input" type="checkbox" name="id" id="checkboxId" value="checkedValue">ID
+                </label>
+                <label class="form-check-label" id="label2">
+                    <input class="form-check-input" type="checkbox" name="nombre" id="checkboxNombre" value="checkedValue">Nombre
+                </label>
+                    <label class="form-check-label" id="label3">
+                    <input class="form-check-input" type="checkbox" name="apellido" id="checkboxApellido" value="checkedValue">Apellido
+                </label>
+                    <label class="form-check-label" id="label4">
+                    <input class="form-check-input" type="checkbox" name="email" id="checkboxEmail" value="checkedValue">Email
+                </label>
+                    <label class="form-check-label" id="label5">
+                    <input class="form-check-input" type="checkbox" name="gender" id="checkboxGender" value="checkedValue">Gender
+                </label>
+                    <label class="form-check-label" id="label6">
+                    <input class="form-check-input" type="checkbox" name="provincia" id="checkboxProvincia" value="checkedValue">Provincia
+                </label>
+            </p>
+            
             <table id="tablaLista" class="table table-dark table-bordered">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                        <th>Gender</th>
-                        <th>Provincia</th>
+                        <th id="idth">Id</th>
+                        <th id="nombreth">Nombre</th>
+                        <th id="apellidoth">Apellido</th>
+                        <th id="emailth">Email</th>
+                        <th id="genderth">Gender</th>
+                        <th id="provinciath">Provincia</th>
                     </tr>
                 </thead>
                 <tbody id="bodyTabla"></tbody>

@@ -1,3 +1,5 @@
+//import { fileURLToPath } from "url";
+
 var lista;
 var tabla;
 var btnAlta;
@@ -15,31 +17,81 @@ window.onload = function(){
     btnAlta.addEventListener('click', function(){
         mostrarFormulario();
     });
-    traerPersonas();
+
+    $('#filtro').change(function(){
+        var filtro = $('#filtro').val();
+        traerPersonas(filtro);
+    });
+
+    $('#checkboxId').change(function(){
+        $("#idth").toggle();
+        $('td:nth-child(1)').toggle();
+    });
+    $('#checkboxNombre').change(function(){
+        $("#nombreth").toggle();
+        $('td:nth-child(2)').toggle();
+    });
+    $('#checkboxApellido').change(function(){
+        $("#apellidoth").toggle();
+        $('td:nth-child(3)').toggle();
+    });
+    $('#checkboxEmail').change(function(){
+        $("#emailth").toggle();
+        $('td:nth-child(4)').toggle();
+    });
+    $('#checkboxGender').change(function(){
+        $("#genderth").toggle();
+        $('td:nth-child(5)').toggle();
+    });
+    $('#checkboxProvincia').change(function(){
+        $("#provinciath").toggle();
+        $('td:nth-child(6)').toggle();
+    });
+    traerPersonas(0);
 };
 
-function actualizarTabla(data)
+function actualizarTabla(data, filtro)
 {
+    if(tabla.hasChildNodes())
+    {
+        $('tbody').remove('#bodyTabla');
+        tabla = document.createElement('tbody');
+        tabla.setAttribute('id', 'bodyTabla');
+        $('#tablaLista').append(tabla);
+    }
+
     lista = data.data;
+
+
+
+    
+    
+
+
+
+
     for(var i=0;i<lista.length;i++){
         var tr = document.createElement("tr");
-        for(var j=0;j<Object.keys(lista[i]).length -1;j++){
-            var td = document.createElement("td");
-            var text =document.createTextNode(Object.values(lista[i])[j]);
-            td.appendChild(text);
-            tr.appendChild(td);
-        }
-        tr.addEventListener('click', function(e){
-            var id = e.target.parentNode.firstChild.textContent;
-            var personaMod = encontrarPersona(id);
-            if(personaMod != -1)
-            {
-                mostrarFormulario(personaMod);
+        if(lista[i].gender == filtro || filtro == 0)
+        { 
+            for(var j=0;j<Object.keys(lista[i]).length -1;j++){
+                var td = document.createElement("td");
+                var text =document.createTextNode(Object.values(lista[i])[j]);
+                td.appendChild(text);
+                tr.appendChild(td);
             }
-            else
-                alert("ERROR: Persona no encontrada");
-        });
-        tabla.appendChild(tr);
+            tr.addEventListener('click', function(e){
+                var id = e.target.parentNode.firstChild.textContent;
+                var personaMod = encontrarPersona(id);
+                if(personaMod != -1)
+                {
+                    mostrarFormulario(personaMod);
+                }
+                else
+                    alert("ERROR: Persona no encontrada");
+            });
+            tabla.appendChild(tr);
+        }
     }
 }
 
@@ -336,3 +388,19 @@ function mostrarFormulario(persona)
         formAlta.style = 'display: block';
     }
 }
+
+
+
+
+
+
+//localStorage.setItem("nombre", "nico");//agrega
+//var nombre = localStorage.getItem('nombre');//obtiene
+//localStorage.removeItem('nombre');//borra uno a partir de clave
+//localStorage.clear(); //borra todos
+/*
+localStorage.setItem("aver",JSON.stringify(lista));
+    var fabi = localStorage.getItem("aver");
+    fabi = JSON.parse(fabi);
+    console.log(fabi[1]);
+    */

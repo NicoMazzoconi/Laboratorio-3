@@ -1,7 +1,7 @@
 var xhr;
 
 
-function traerPersonas()
+function traerPersonas(filtro)
 {
     $.ajax({
         url: "http://localhost:3000/traer?collection=personas",
@@ -9,7 +9,7 @@ function traerPersonas()
             setSpinner(true);
         },
         success: function(respuesta){
-            actualizarTabla(respuesta);
+            actualizarTabla(respuesta, filtro);
             setSpinner(false);
         },
         error: function(xhr,status){
@@ -41,7 +41,7 @@ function eliminarPersona(id)
         setSpinner(true);
     },
     success: function(respuesta){
-        traerPersonas();
+        traerPersonas(0);
         setSpinner(false);
     },
     error: function(xhr,status){
@@ -70,7 +70,7 @@ function procesarPersonas()
       var lista = JSON.parse(xhr.responseText);
       if(lista.data != null)
       {
-          actualizarTabla(lista);
+          actualizarTabla(lista, 0);
           setSpinner(false);
       }
       else
