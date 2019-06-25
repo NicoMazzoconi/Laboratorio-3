@@ -3,85 +3,70 @@ var xhr;
 
 function traerPersonas(filtro)
 {
-    $.ajax({
-        url: "http://localhost:3000/traer?collection=personas",
-        beforeSend: function(){
-            setSpinner(true);
-        },
-        success: function(respuesta){
-            actualizarTabla(respuesta, filtro);
-            setSpinner(false);
-        },
-        error: function(xhr,status){
-            alert("Error: " + status + " " + xhr.statusText);
-        }
+    setSpinner(true);
+    var data = localStorage.getItem('data');
+    var lista = JSON.parse(data);
+
+    var activos=lista.filter(function(elemento){
+        return elemento.active;
     });
+    
+    actualizarTabla(activos, filtro);
+    setTimeout(function(){
+        setSpinner(false)
+    }, 2000);
 }
+
 
 function insertarPersona(persona)
 {
-  xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = procesarPersonas;
-  var cadena = 'http://localhost:3000/agregar';
-  var body = {'collection':'personas','objeto':persona};
-  xhr.open('POST', cadena, true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.send(JSON.stringify(body));     
+  var ultimo = localStorage.getItem('data');
+  ultimo = JSON.parse(ultimo);
+  var tam = ultimo.length;
+  ultimo = ultimo[tam-1];
+  var id = ultimo.id + 1;
+  persona.id = id;
+  var todos = localStorage.getItem('data');
+  todos = JSON.parse(todos);
+  todos.push(persona);
+  localStorage.setItem('data', JSON.stringify(todos));
+  traerPersonas(0);
 }
 
 function eliminarPersona(id)
 {
-  var body = {'collection':'personas','id':id};
-  $.ajax({
-    url: "http://localhost:3000/eliminar",
-    data: JSON.stringify(body),
-    type:"post",
-    contentType: 'application/json',
-    beforeSend: function(){
-        setSpinner(true);
-    },
-    success: function(respuesta){
-        traerPersonas(0);
-        setSpinner(false);
-    },
-    error: function(xhr,status){
-        alert("Error: " + status + " " + xhr.statusText);
+  var todos = localStorage.getItem('data');
+  todos = JSON.parse(todos);
+  for(var i = 0; i < todos.length; i++)
+  {
+      if(id == todos[i].id)
+    {
+        todos[i].active = false;
+        localStorage.setItem('data', JSON.stringify(todos));
+        break;
     }
-});
+  }
+  traerPersonas(0);
 }
 
 function modificarPersona(persona)
 {
-  xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = procesarPersonas;
-  var cadena = 'http://localhost:3000/modificar';
-  var body = {'collection':'personas','objeto':persona}
-  xhr.open('POST', cadena, true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.send(JSON.stringify(body));
-}
-
-function procesarPersonas()
-{
-  if(xhr.readyState == 4)
-  {
-    if(xhr.status == 200)
+    var todos = localStorage.getItem('data');
+    todos = JSON.parse(todos);
+    for(var i = 0; i < todos.length; i++)
     {
-      var lista = JSON.parse(xhr.responseText);
-      if(lista.data != null)
-      {
-          actualizarTabla(lista, 0);
-          setSpinner(false);
-      }
-      else
-      {
-          traerPersonas();
-      }
+        if(persona.id == todos[i].id)
+        {
+            todos[i].first_name = persona.first_name;
+            todos[i].last_name = persona.last_name;
+            todos[i].email = persona.email;
+            todos[i].gender = persona.gender;
+            todos[i].provincia = persona.provincia;
+            todos[i].edad = persona.edad;
+            todos[i].tipo = persona.tipo;
+            localStorage.setItem('data', JSON.stringify(todos));
+            break;
+        }
     }
-  }
-  else
-  {
-      setSpinner(true);
-  }
+    traerPersonas(0);
 }
-

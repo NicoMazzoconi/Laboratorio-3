@@ -107,17 +107,29 @@ form button{
 }
 #label3{
     position: relative;
-    left: 20%;
+    left: 15%;
 }
 #label4{
     position: relative;
-    left: 30%;
+    left: 20%;
 }
 #label5{
     position: relative;
-    left: 53%;
+    left: 25%;
 }
 #label6{
     position: relative;
-    left: 61%;
+    left: 30%;
+}
+#label7{
+    position: relative;
+    left: 40%;
+}
+#label8{
+    position: relative;
+    left: 45%;
+}
+
+#filtros{
+    background-color: rgba(45, 218, 117, 1 );
 }

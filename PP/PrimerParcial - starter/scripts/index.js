@@ -1,4 +1,3 @@
-//import { fileURLToPath } from "url";
 
 var lista;
 var tabla;
@@ -47,6 +46,14 @@ window.onload = function(){
         $("#provinciath").toggle();
         $('td:nth-child(6)').toggle();
     });
+    $('#checkboxEdad').change(function(){
+        $("#edadth").toggle();
+        $('td:nth-child(7)').toggle();
+    });
+    $('#checkboxTipo').change(function(){
+        $("#tipoth").toggle();
+        $('td:nth-child(8)').toggle();
+    });
     traerPersonas(0);
 };
 
@@ -60,20 +67,12 @@ function actualizarTabla(data, filtro)
         $('#tablaLista').append(tabla);
     }
 
-    lista = data.data;
-
-
-
-    
-    
-
-
-
+    lista = data;
 
     for(var i=0;i<lista.length;i++){
         var tr = document.createElement("tr");
-        if(lista[i].gender == filtro || filtro == 0)
-        { 
+        if(lista[i].tipo == filtro || filtro == 0)
+        {
             for(var j=0;j<Object.keys(lista[i]).length -1;j++){
                 var td = document.createElement("td");
                 var text =document.createTextNode(Object.values(lista[i])[j]);
@@ -93,6 +92,24 @@ function actualizarTabla(data, filtro)
             tabla.appendChild(tr);
         }
     }
+
+    var edades=0;
+    var cantidad=0;
+    var hombres = 0;
+
+    var edadPromedio = lista.reduce(function(previo, actual){
+        if(actual.tipo == filtro || filtro == 0)
+        {
+            cantidad++;
+            edades = edades + parseInt(actual.edad);
+            if(actual.gender == "Male")
+                hombres++;
+        }
+    },0);
+
+
+    $('#promGenero').val(hombres * 100 / cantidad + '%');
+    $('#promEdad').val(edades / cantidad);
 }
 
 function encontrarPersona(id)
@@ -141,6 +158,8 @@ function mostrarFormulario(persona)
     var pEmail = document.createElement('p');
     var pSexo = document.createElement('p');
     var pProvincia = document.createElement('p');
+    var pEdad = document.createElement('p');
+    var pTipo = document.createElement('p');
 
     //LABEL
     var lblName = document.createElement('label');
@@ -150,6 +169,9 @@ function mostrarFormulario(persona)
     var lblHombre = document.createElement('label');
     var lblMujer = document.createElement('label');
     var lblProvinicia = document.createElement('label');
+    var lblEdad = document.createElement('label');
+    var lblTipo1 = document.createElement('label');
+    var lblTipo2 = document.createElement('label');
 
     //NODE TEXT
     var nodeTextName = document.createTextNode("NOMBRE");
@@ -159,6 +181,9 @@ function mostrarFormulario(persona)
     var nodeTextHombre = document.createTextNode("HOMBRE");
     var nodeTextMujer = document.createTextNode('MUJER');
     var nodeTextProvincia = document.createTextNode('PROVINCIA');
+    var nodeTextEdad = document.createTextNode('EDAD');
+    var nodeTextTipo1 = document.createTextNode('DIPUTADO');
+    var nodeTextTipo2 = document.createTextNode('SENADOR');
 
     //AGREGO LOS NODE TEXT A LOS LABEL
     lblName.appendChild(nodeTextName);
@@ -168,6 +193,9 @@ function mostrarFormulario(persona)
     lblHombre.appendChild(nodeTextHombre);
     lblMujer.appendChild(nodeTextMujer);
     lblProvinicia.appendChild(nodeTextProvincia);
+    lblEdad.appendChild(nodeTextEdad);
+    lblTipo1.appendChild(nodeTextTipo1);
+    lblTipo2.appendChild(nodeTextTipo2);
 
     //INPUTS TEXT
     var inputName = document.createElement('input');
@@ -179,6 +207,9 @@ function mostrarFormulario(persona)
     var inputEmail = document.createElement('input');
     inputEmail.setAttribute('type', 'email');
     inputEmail.setAttribute('required', true);
+    var inputEdad = document.createElement('input');
+    inputEdad.setAttribute('type', 'text');
+    inputEdad.setAttribute('required', true);
 
     //INPUTS RADIO
     var inputHombre = document.createElement('input');
@@ -189,6 +220,15 @@ function mostrarFormulario(persona)
     var inputMujer = document.createElement('input');
     inputMujer.setAttribute('type', 'radio');
     inputMujer.setAttribute('name', 'sexo');
+
+    var inputTipo1 = document.createElement('input');
+    inputTipo1.setAttribute('type', 'radio');
+    inputTipo1.setAttribute('name', 'tipo');
+    inputTipo1.setAttribute('checked', true);
+
+    var inputTipo2 = document.createElement('input');
+    inputTipo2.setAttribute('type', 'radio');
+    inputTipo2.setAttribute('name', 'tipo');
 
     //SELECT
     var inputProvincia = document.createElement('select');
@@ -234,12 +274,23 @@ function mostrarFormulario(persona)
     pProvincia.appendChild(lblProvinicia);
     pProvincia.appendChild(inputProvincia);
 
+    pEdad.appendChild(lblEdad);
+    pEdad.appendChild(inputEdad);
+
+    pTipo.appendChild(inputTipo1);
+    pTipo.appendChild(lblTipo1);
+
+    pTipo.appendChild(inputTipo2);
+    pTipo.appendChild(lblTipo2);
+
     //AGREGO AL FORM
     formulario.appendChild(pName);
     formulario.appendChild(pLast);
     formulario.appendChild(pEmail);
     formulario.appendChild(pSexo);
     formulario.appendChild(pProvincia);
+    formulario.appendChild(pEdad);
+    formulario.appendChild(pTipo);
 
     if(persona)
     {
@@ -247,6 +298,7 @@ function mostrarFormulario(persona)
         inputName.setAttribute('value', persona.first_name);
         inputLast.setAttribute('value', persona.last_name);
         inputEmail.setAttribute('value', persona.email);
+        inputEdad.setAttribute('value', persona.edad);
         switch(persona.provincia)
         {
             case 'Buenos Aires':
@@ -270,6 +322,11 @@ function mostrarFormulario(persona)
             inputMujer.checked = true;
         else
             inputHombre.checked = true;
+
+        if(persona.tipo == "DIPUTADO")
+            inputTipo1.checked = true;
+        else
+            inputTipo2.checked = true;
 
         //Creo boton guardar
         var btnGuardar = document.createElement('button')
@@ -296,6 +353,7 @@ function mostrarFormulario(persona)
             inputName.removeAttribute('required');
             inputEmail.removeAttribute('required');
             inputLast.removeAttribute('required');
+            inputEdad.removeAttribute('required');
             formMod.style = 'display: none';
             formMod.remove;
         });
@@ -309,14 +367,21 @@ function mostrarFormulario(persona)
                 else
                     sex = "Female";
     
+                var tipo;
+                if(inputTipo1.checked)
+                    tipo = "DIPUTADO";
+                else
+                    tipo = "SENADOR";
+
                 var usuario = {
                     "id":persona.id,
                     "first_name":inputName.value,
                     "last_name":inputLast.value,
                     "email":inputEmail.value,
                     "gender":sex,
-                    
                     "provincia":inputProvincia.value,
+                    "edad":inputEdad.value,
+                    "tipo":tipo,
                     "active":true
                 };
 
@@ -354,11 +419,13 @@ function mostrarFormulario(persona)
             inputName.removeAttribute('required');
             inputEmail.removeAttribute('required');
             inputLast.removeAttribute('required');
+            inputEdad.removeAttribute('required');
             formAlta.style = 'display: none';
             formAlta.remove;
         });
 
-        btnGuardar.addEventListener('click', function(){
+        btnGuardar.addEventListener('click', function(e){
+            e.preventDefault();
             if(inputEmail.validity.valid)
             {
                 var sex;
@@ -366,7 +433,13 @@ function mostrarFormulario(persona)
                     sex = "Male";
                 else
                     sex = "Female";
-                
+
+                var tipo;
+                if(inputTipo1.checked)
+                    tipo = "DIPUTADO";
+                else
+                    tipo = "SENADOR";
+
                 var usuario = {
                     "id":"-1",
                     "first_name":inputName.value,
@@ -374,8 +447,9 @@ function mostrarFormulario(persona)
                     "email":inputEmail.value,
                     "gender":sex,
                     "provincia":inputProvincia.value,
+                    "edad":inputEdad.value,
+                    "tipo":tipo,
                     "active":true
-                    
                 };
 
                 insertarPersona(usuario);
@@ -399,7 +473,7 @@ function mostrarFormulario(persona)
 //localStorage.removeItem('nombre');//borra uno a partir de clave
 //localStorage.clear(); //borra todos
 /*
-localStorage.setItem("aver",JSON.stringify(lista));
+localStorage.setItem("data",JSON.stringify(lista));
     var fabi = localStorage.getItem("aver");
     fabi = JSON.parse(fabi);
     console.log(fabi[1]);
